@@ -11,7 +11,7 @@ export function useGSAP(
 
   useLayoutEffect(() => {
     // Only run on client side
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
     contextRef.current = gsap.context(() => {
       const cleanup = callback(contextRef.current);
