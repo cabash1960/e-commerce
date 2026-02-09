@@ -8,12 +8,15 @@ import { useRef } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import SplitText from "gsap/src/SplitText";
+
 function Hero() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger);
+    if (!videoRef.current) return;
+
     const heroSplit = new SplitText(".title", { type: "chars,words" });
     const paragraphSplit = new SplitText(".paragraph", { type: "lines" });
 
@@ -43,7 +46,7 @@ function Hero() {
     });
 
     const startValue = isMobile ? "top 50%" : "center 50%"; // top screen
-    const endValue = isMobile ? "200% top" : "bottom top";
+    const endValue = isMobile ? "120% top" : "+=300%";
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -62,17 +65,13 @@ function Hero() {
       });
     };
 
-    if (videoRef.current?.readyState && videoRef.current.readyState >= 1) {
+    if (videoRef.current.readyState >= 1) {
       setupVideoAnimation();
-    } else if (videoRef.current) {
+    } else {
       videoRef.current.onloadedmetadata = setupVideoAnimation;
     }
+  }, [isMobile]);
 
-    return () => {
-      heroSplit.revert();
-      paragraphSplit.revert();
-    };
-  }, []);
   return (
     <section className="min-h-screen relative hero  w-full z-10  flex items-center justify-center overflow-hidden ">
       <h1 className="font-bold logo relative  title text-[16rem] text-[#4a4a4a]! opacity-25 tracking-[0.2em]">
@@ -95,7 +94,7 @@ function Hero() {
       <div className="absolute bottom-3/4 dot-right -right-10">
         <Design className="dotted" />
       </div>
-      <div className="w-full md:h-[80%] h-3/4 absolute -top-32 left-0">
+      <div className="w-full md:h-[80%] video h-3/4 absolute -top-32 left-0">
         <video
           ref={videoRef}
           className="w-full h-full md:object-contain object-cover object-bottom"
