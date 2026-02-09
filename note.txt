@@ -1,0 +1,13 @@
+Primary Combo:
+
+Heading: Space Grotesk Bold (modern, slightly futuristic)
+Accent/Display: Orbitron (for special headings/logos)
+Body: Inter or DM Sans (clean contrast)
+
+
+
+
+Primary: #0A0A0A (deep black)
+Secondary: #F5F5F5 (off-white)
+Accent: #FF6B35 (vibrant orange)
+Background: #E8E8E8 (light gray) #96897ed3

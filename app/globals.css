@@ -1,26 +1,86 @@
 @import "tailwindcss";
 
+/* * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+} */
+
+/* globals.css */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-primary: #0a0a0a;
+  --color-secondary: #f5f5f5;
+  --color-accent: #ff6b35;
+  --color-background: #f2ede6;
+  --color-text-muted: #666666;
+  --color-text-light: #999999;
+  --container-offset: calc((100vw - var(--container-width)) * 0.5);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter);
+  background-color: var(--color-background);
+  color: var(--color-primary);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* Headings */
+h1 {
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+h3 {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+h4 {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.text-body {
+  font-size: 1rem;
+  color: var(--color-primary);
+  font-weight: 400;
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.text-light {
+  color: var(--color-text-light);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Accent text */
+.text-accent {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+body {
+  font-family: var(--font-dm-sans);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-spaceGrotesk);
+}
+
+.logo {
+  font-family: var(--font-orbitron);
 }
