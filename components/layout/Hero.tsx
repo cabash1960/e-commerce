@@ -11,6 +11,7 @@ import SplitText from "gsap/src/SplitText";
 
 function Hero() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  // const sectionRef = useRef<HTMLElement | null>(null);
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   useGSAP(() => {
@@ -45,8 +46,9 @@ function Hero() {
       stagger: 0.06,
     });
 
-    const startValue = isMobile ? "top 50%" : "center 50%"; // top screen
-    const endValue = isMobile ? "120% top" : "+=300%";
+    const startValue = isMobile ? "top 50%" : "center 60%";
+
+    const endValue = isMobile ? "120% top" : "+=200%";
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -55,6 +57,7 @@ function Hero() {
         end: endValue,
         scrub: true,
         pin: true,
+        pinSpacing: false,
       },
     });
 
@@ -73,7 +76,7 @@ function Hero() {
   }, [isMobile]);
 
   return (
-    <section className="min-h-screen relative hero  w-full z-10  flex items-center justify-center overflow-hidden ">
+    <section className="min-h-screen relative  hero  w-full z-0  flex items-center justify-center overflow-hidden ">
       <h1 className="font-bold logo relative  title text-[16rem] text-[#4a4a4a]! opacity-25 tracking-[0.2em]">
         CABASH
       </h1>
@@ -94,6 +97,7 @@ function Hero() {
       <div className="absolute bottom-3/4 dot-right -right-10">
         <Design className="dotted" />
       </div>
+
       <div className="w-full md:h-[80%] video h-3/4 absolute -top-32 left-0">
         <video
           ref={videoRef}

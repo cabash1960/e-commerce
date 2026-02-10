@@ -46,7 +46,14 @@ function ProductDetails({
 
   return (
     <div className="flex  gap-3">
-      {imageUrl && (
+      {selectedProduct.image ? (
+        <Image
+          src={selectedProduct.image}
+          alt="product-image"
+          width={500}
+          height={500}
+        />
+      ) : (
         <Image src={imageUrl} alt="product-image" width={500} height={500} />
       )}
       <h1>{selectedProduct.name}</h1>

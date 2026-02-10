@@ -22,8 +22,22 @@ export default function ProductFilter({ products }: ProductFilterProps) {
   });
 
   return (
-    <section>
+    <section className="min-h-screen pt-8">
       <div>
+        <div className="text-center  mb-16 md:mb-24">
+          <h2
+            className="text-4xl md:text-5xl lg:text-6xl  font-bold text-gray-900 mb-4"
+            // ref={headingRef}
+          >
+            Step Into The Void
+          </h2>
+          <p
+            className="text-lg md:text-xl  text-gray-600 max-w-2xl mx-auto"
+            // ref={paragraphRef}
+          >
+            Handpicked favorites from our latest arrivals
+          </p>
+        </div>
         <div>
           <input
             type="text"
@@ -34,9 +48,9 @@ export default function ProductFilter({ products }: ProductFilterProps) {
         </div>
         <div>
           {filteredProduct.length > 0 ? (
-            <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 ">
               {filteredProduct.map((product: Products) => (
-                <li key={product.id}>
+                <li key={product.id} className="w-fit">
                   <ProductCard product={product} />
                 </li>
               ))}

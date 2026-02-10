@@ -16,6 +16,7 @@ export interface Products {
   owner: null;
   createdAt: string;
   updatedAt: string;
+  image?: string;
 }
 
 export interface CartItem {

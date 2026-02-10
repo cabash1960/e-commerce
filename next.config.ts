@@ -11,6 +11,25 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "api.oluwasetemi.dev",
       },
+      {
+        protocol: "https",
+        hostname: "picsum.photos",
+        port: "",
+        pathname: "/**",
+      },
+
+      {
+        protocol: "https",
+        hostname: "imgur.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "i.imgur.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 };

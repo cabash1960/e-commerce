@@ -21,7 +21,7 @@ export default function RootLayout({
         className={`${dMSans.variable} ${spaceGrotesk.variable} ${orbitron.variable} antialiased`}
       >
         <NavBar />
-        <main className="min-h-full">{children}</main>
+        <main className="min-h-full pt-20 md:pt-24">{children}</main>
         <Footer />
       </body>
     </html>
