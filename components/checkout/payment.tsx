@@ -21,8 +21,14 @@ import {
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { CheckoutFormData, checkoutSchema } from "@/lib/checkout";
-import { PaystackButton } from "react-paystack";
+// import { PaystackButton } from "react-paystack";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+
+const PaystackButton = dynamic(
+  () => import("react-paystack").then((mod) => mod.PaystackButton),
+  { ssr: false },
+);
 
 function Payment() {
   const { items, clearItems } = useCartStore();
