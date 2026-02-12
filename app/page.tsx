@@ -6,7 +6,7 @@ import FeaturedProducts from "@/components/layout/featuredProduct";
 
 export default async function Home() {
   const products = await fetchFeaturedProducts();
-  console.log("products:", typeof products);
+
   const featuredProducts = products.slice(0, 4);
 
   return (

@@ -4,7 +4,7 @@ import ProductFilter from "@/components/products/ProductFilter";
 async function ProductList() {
   const products = await fetchProducts();
 
-  return <ProductFilter products={products} />;
+  return <ProductFilter />;
 }
 
 export default ProductList;

@@ -1,7 +1,11 @@
-import React from "react";
+import Payment from "@/components/checkout/payment";
 
-function CheckoutPage() {
-  return <div>CheckoutPage</div>;
+function CheckOutpage() {
+  return (
+    <div>
+      <Payment />
+    </div>
+  );
 }
 
-export default CheckoutPage;
+export default CheckOutpage;

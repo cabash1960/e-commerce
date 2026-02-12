@@ -9,14 +9,14 @@ export interface Products {
   quantity: number;
   category: string;
   tags: string[] | null;
-  images: string;
+  images: string | string[];
   featured: boolean;
   published: boolean;
   isDefault: boolean;
   owner: null;
   createdAt: string;
   updatedAt: string;
-  image?: string;
+  image: string;
 }
 
 export interface CartItem {
@@ -24,4 +24,6 @@ export interface CartItem {
   name: string;
   price: number;
   quantity: number;
+  image: string;
+  description?: string;
 }
