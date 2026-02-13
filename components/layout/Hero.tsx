@@ -11,7 +11,7 @@ import SplitText from "gsap/src/SplitText";
 function Hero() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const hiddenVideoRef = useRef<HTMLVideoElement | null>(null);
-  const animationFrameRef = useRef<number>();
+  const animationFrameRef = useRef<number | undefined>(undefined);
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   // Chroma key processing
