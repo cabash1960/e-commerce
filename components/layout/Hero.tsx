@@ -80,7 +80,7 @@ function Hero() {
 
   return (
     <section className="min-h-screen relative hero w-full z-0 flex items-center justify-center overflow-hidden">
-      <h1 className="font-bold logo relative title text-5xl sm:text-6xl md:text-[16rem] text-[#4a4a4a] opacity-25 tracking-[0.2em] md:tracking-[0.2em]">
+      <h1 className="font-bold logo relative title text-5xl sm:text-6xl md:text-[16rem] text-[#4a4a4a] opacity-25 tracking-[0.15em] md:tracking-[0.2em]">
         CABASH
       </h1>
 
@@ -116,8 +116,17 @@ function Hero() {
           playsInline
           preload="metadata"
           style={{ filter: "hue-rotate(180deg)" }}
-          src="/videos/shoe_smooth_transparent.webm"
-        ></video>
+          // src="/videos/shoe_smooth_transparent.webm"
+        >
+          <source
+            src="/videos/shoe_smooth_transparent.webm"
+            type="video/webm; codecs=vp9"
+          />
+          <source
+            src="/videos/shoe_smooth_transparent.mp4"
+            type="video/mp4; codecs=hvc1"
+          />
+        </video>
       </div>
     </section>
   );
