@@ -100,7 +100,7 @@ function FeaturedProduct({
           </p>
         </div>
         {featuredProducts.length > 0 ? (
-          <ul className="grid grid-cols-2 gap-x-8 gap-y-8 sm:gap-x-16 md:gap-x-32 lg:gap-x-48 xl:gap-x-72 md:gap-y-12">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-8 sm:gap-x-16 md:gap-x-32 lg:gap-x-48 xl:gap-x-72 md:gap-y-12">
             {featuredProducts.map((product: Products, index: number) => (
               <li
                 key={product.id}

@@ -1,14 +1,15 @@
 "use client";
 
-import React from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useCartStore } from "@/store/cartStore";
-import { BaggageClaim, UserRound } from "lucide-react";
+import { BaggageClaim, UserRound, Menu, X } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@/lib/useGSAP";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 function NavBar() {
+  const [open, isOpen] = useState(false);
   const { items } = useCartStore();
   const cartCount = items.reduce((acc, item) => acc + item.quantity, 0);
   useGSAP(() => {
@@ -35,25 +36,24 @@ function NavBar() {
   });
 
   return (
-    <nav className=" h-20 fixed w-full z-50   p-6  bg-[#0A0A0A]">
+    <nav className=" lg:h-20 fixed w-full z-50 lg:h-10  lg:p-6 p-4 bg-[#0A0A0A]">
       <div className="flex justify-between items-center  text-gray-100 max-w-7xl mx-auto">
-        <div>
-          <ul className="flex gap-7">
-            <li>
-              <Link href="/">Home</Link>
-            </li>
-            <li>
-              <Link href="/products">Products</Link>
-            </li>
-            <li>
-              <Link href="/about">About</Link>
-            </li>
-          </ul>
-        </div>
-        <div className="text-2xl logo font-bold">
+        <ul className=" hidden md:flex gap-7">
+          <li>
+            <Link href="/">Home</Link>
+          </li>
+          <li>
+            <Link href="/products">Products</Link>
+          </li>
+          <li>
+            <Link href="/about">About</Link>
+          </li>
+        </ul>
+
+        <div className="lg:text-2xl text-xl logo font-bold">
           <Link href="/">CABASH</Link>
         </div>
-        <div className="flex gap-7 items-center justify-center">
+        <div className="lg:flex gap-7 hidden items-center justify-center">
           <UserRound />
           <span>
             <Link href="/carts" className="relative">
@@ -63,12 +63,64 @@ function NavBar() {
               </span>
             </Link>
           </span>
+          <Link href="/products">
+            <p className="bg-[#D97642] text-white px-4 py-2 hidden md:flex cursor:pointer rounded-md text-sm font-semibold hover:bg-[#E08856] transition-colors">
+              Shop Now
+            </p>
+          </Link>
+        </div>
+        <div className="flex gap-2 md:hidden">
+          <UserRound />
+          <span>
+            <Link href="/carts" className="relative">
+              <BaggageClaim />
+              <span className=" bg-red-800 text-white rounded-full w-5 h-5 flex items-center justify-center absolute -top-2 left-4">
+                {cartCount > 0 && cartCount}
+              </span>
+            </Link>
+          </span>
+          <Link href="/products">
+            <p className="bg-[#D97642] text-white px-4 py-2 hidden md:flex cursor:pointer rounded-md text-sm font-semibold hover:bg-[#E08856] transition-colors">
+              Shop Now
+            </p>
+          </Link>
 
-          <p className="bg-[#D97642] text-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-[#E08856] transition-colors">
-            Shop Now
-          </p>
+          {open ? (
+            <button className="md:hidden" onClick={() => isOpen(!open)}>
+              <X />
+            </button>
+          ) : (
+            <button className="md:hidden" onClick={() => isOpen(!open)}>
+              <Menu />
+            </button>
+          )}
         </div>
       </div>
+      {open && (
+        <ul className=" md:hidden flex flex-col bg-[#0A0A0A] items-center py-6 gap-6 absolute top-10 left-0 w-full  text-gray-300">
+          <li>
+            <Link href="/" onClick={() => isOpen(false)}>
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link href="/products" onClick={() => isOpen(false)}>
+              Products
+            </Link>
+          </li>
+          <li>
+            <Link href="/about" onClick={() => isOpen(false)}>
+              About
+            </Link>
+          </li>
+          <li>
+            {" "}
+            <Link href="/products" onClick={() => isOpen(false)}>
+              Shop Now
+            </Link>
+          </li>
+        </ul>
+      )}
     </nav>
   );
 }

@@ -77,10 +77,10 @@ function Hero() {
 
   return (
     <section className="min-h-screen relative  hero  w-full z-0  flex items-center justify-center overflow-hidden ">
-      <h1 className="font-bold logo relative  title text-[16rem] text-[#4a4a4a]! opacity-25 tracking-[0.2em]">
+      <h1 className="font-bold logo relative  title text-6xl md:text-[16rem] text-[#4a4a4a]! opacity-25 tracking-[0.2em]">
         CABASH
       </h1>
-      <div className="text-5xl paragraph text-left text-[#2a2a2a] font-extrabold logo absolute top-80 left-32 z-20 flex flex-col gap-4  ">
+      <div className="text-3xl md:text-5xl paragraph text-left text-[#2a2a2a] font-extrabold logo absolute top-32 left-6 md:top-80 md:left-32 z-20 flex flex-col gap-4  ">
         <p>
           TAKE <br />
           THE
@@ -88,7 +88,7 @@ function Hero() {
           STEP
         </p>
       </div>
-      <p className="text-xl paragraph text-left text-[#0a0a0a] font-extrabold absolute top-1/2 right-32 z-20 underline decoration-[#FF6B35] decoration-4 underline-offset-4">
+      <p className="text-xl paragraph text-left text-[#0a0a0a] font-extrabold absolute top-2/3 right-6 md:top-1/2 md:right-32 z-20 underline decoration-[#FF6B35] decoration-4 underline-offset-4">
         NIKE AIRMAX 95
       </p>
       <div className="absolute top-3/4 dot-left -left-10">
