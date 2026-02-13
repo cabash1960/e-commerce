@@ -6,12 +6,10 @@ import { useGSAP } from "@/lib/useGSAP";
 import gsap from "gsap";
 import { useRef } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
 import SplitText from "gsap/src/SplitText";
 
 function Hero() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  // const sectionRef = useRef<HTMLElement | null>(null);
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   useGSAP(() => {
@@ -21,43 +19,48 @@ function Hero() {
     const heroSplit = new SplitText(".title", { type: "chars,words" });
     const paragraphSplit = new SplitText(".paragraph", { type: "lines" });
 
+    // Faster animations on mobile
+    const animDuration = isMobile ? 1.2 : 1.8;
+    const staggerAmount = isMobile ? 0.03 : 0.05;
+
     gsap.from(heroSplit.chars, {
       yPercent: 100,
-      duration: 1.8,
+      duration: animDuration,
       ease: "expo.out",
       opacity: 0,
-      stagger: 0.05,
+      stagger: staggerAmount,
     });
 
     gsap.from(paragraphSplit.lines, {
       opacity: 0,
       yPercent: 100,
-      duration: 1.8,
+      duration: animDuration,
       ease: "expo.out",
-      stagger: 0.06,
-      delay: 1,
+      stagger: isMobile ? 0.04 : 0.06,
+      delay: isMobile ? 0.6 : 1,
     });
 
     gsap.from(".dotted", {
       opacity: 0,
       xPercent: 100,
-      duration: 1.8,
+      duration: animDuration,
       ease: "expo.out",
-      stagger: 0.06,
+      stagger: isMobile ? 0.04 : 0.06,
     });
 
-    const startValue = isMobile ? "top 50%" : "center 60%";
-
-    const endValue = isMobile ? "120% top" : "+=200%";
+    // Optimized scroll values for mobile
+    const startValue = isMobile ? "top 40%" : "center 60%";
+    const endValue = isMobile ? "+=150%" : "+=200%";
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: videoRef.current,
         start: startValue,
         end: endValue,
-        scrub: true,
+        scrub: isMobile ? 0.5 : true, // Smoother scrub on mobile
         pin: true,
         pinSpacing: false,
+        anticipatePin: 1, // Prevents jump on pin
       },
     });
 
@@ -76,11 +79,13 @@ function Hero() {
   }, [isMobile]);
 
   return (
-    <section className="min-h-screen relative  hero  w-full z-0  flex items-center justify-center overflow-hidden ">
-      <h1 className="font-bold logo relative  title text-6xl md:text-[16rem] text-[#4a4a4a]! opacity-25 tracking-[0.2em]">
+    <section className="min-h-screen relative hero w-full z-0 flex items-center justify-center overflow-hidden">
+      <h1 className="font-bold logo relative title text-5xl sm:text-6xl md:text-[16rem] text-[#4a4a4a] opacity-25 tracking-[0.2em] md:tracking-[0.2em]">
         CABASH
       </h1>
-      <div className="text-3xl md:text-5xl paragraph text-left text-[#2a2a2a] font-extrabold logo absolute top-32 left-6 md:top-80 md:left-32 z-20 flex flex-col gap-4  ">
+
+      {/* Improved mobile positioning */}
+      <div className="text-3xl sm:text-4xl md:text-5xl paragraph text-left text-[#2a2a2a] font-extrabold logo absolute top-24 left-4 sm:top-32 sm:left-6 md:top-80 md:left-32 z-20 flex flex-col gap-2 md:gap-4 leading-tight">
         <p>
           TAKE <br />
           THE
@@ -88,25 +93,30 @@ function Hero() {
           STEP
         </p>
       </div>
-      <p className="text-xl paragraph text-left text-[#0a0a0a] font-extrabold absolute top-2/3 right-6 md:top-1/2 md:right-32 z-20 underline decoration-[#FF6B35] decoration-4 underline-offset-4">
+
+      {/* Better mobile placement */}
+      <p className="text-base sm:text-lg md:text-xl paragraph text-left text-[#0a0a0a] font-extrabold absolute bottom-24 right-4 sm:bottom-32 sm:right-6 md:top-1/2 md:right-32 z-20 underline decoration-[#FF6B35] decoration-2 md:decoration-4 underline-offset-2 md:underline-offset-4">
         NIKE AIRMAX 95
       </p>
-      <div className="absolute top-3/4 dot-left -left-10">
-        <Design className="dotted" />
+
+      {/* Adjusted dot positions for mobile */}
+      <div className="absolute top-2/3 md:top-3/4 -left-16 md:-left-10">
+        <Design className="dotted scale-75 md:scale-100" />
       </div>
-      <div className="absolute bottom-3/4 dot-right -right-10">
-        <Design className="dotted" />
+      <div className="absolute bottom-2/3 md:bottom-3/4 -right-16 md:-right-10">
+        <Design className="dotted scale-75 md:scale-100" />
       </div>
 
-      <div className="w-full md:h-[80%] video h-3/4 absolute -top-32 left-0">
+      {/* Optimized video container */}
+      <div className="w-full h-2/3 sm:h-3/4 md:h-[80%] video absolute -top-20 sm:-top-32 left-0 will-change-transform">
         <video
           ref={videoRef}
-          className="w-full h-full md:object-contain object-cover object-bottom"
+          className="w-full h-full object-cover object-bottom md:object-contain"
           muted
+          playsInline
+          preload="metadata"
           style={{ filter: "hue-rotate(180deg)" }}
           src="/videos/shoe_smooth_transparent.webm"
-          playsInline
-          preload="auto"
         ></video>
       </div>
     </section>
