@@ -3,6 +3,9 @@ import { fetchFeaturedProducts } from "@/lib/api";
 
 async function Cartpage() {
   const products = await fetchFeaturedProducts();
+  if (!products) {
+    throw new Error("Failed to fetch Products ");
+  }
 
   const featuredProducts = products.slice(0, 4);
 

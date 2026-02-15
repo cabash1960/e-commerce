@@ -21,7 +21,6 @@ import {
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { CheckoutFormData, checkoutSchema } from "@/lib/checkout";
-// import { PaystackButton } from "react-paystack";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
@@ -81,7 +80,7 @@ function Payment() {
     email: email || "test@example.com",
     amount: Math.round(total * 100),
     publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "",
-    text: `Pay ₦${total.toFixed(2)}`,
+    text: `Pay ₦${total.toLocaleString()}`,
     currency: "NGN",
     reference: `ORDER-${Date.now()}`,
     metadata: {
@@ -118,20 +117,33 @@ function Payment() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8">Checkout</h1>
+    <section className="min-h-screen px-4 py-12 md:px-8 md:py-16">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-8 md:mb-12">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-2">
+            Checkout
+          </h1>
+          <p className="text-sm md:text-base text-gray-600">
+            Complete your order
+          </p>
+        </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
           {/* Left: Form */}
-          <div className="lg:col-span-2 bg-white p-6 rounded-lg shadow-sm">
-            <h2 className="text-xl font-bold mb-6">Customer Information</h2>
+          <div className="lg:col-span-2 border border-[#b5afa7] bg-white p-4 md:p-6 rounded-lg">
+            <h2 className="text-xl md:text-2xl font-bold mb-6 text-gray-900">
+              Customer Information
+            </h2>
 
             <FieldGroup>
               {/* First Name & Last Name */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Field>
-                  <FieldLabel htmlFor="firstName">
+                  <FieldLabel
+                    htmlFor="firstName"
+                    className="text-sm md:text-base"
+                  >
                     First Name <span className="text-red-500">*</span>
                   </FieldLabel>
                   <Input
@@ -139,16 +151,20 @@ function Payment() {
                     id="firstName"
                     type="text"
                     placeholder="John"
+                    className="border-[#b5afa7] focus:ring-[#0a0a0a]"
                   />
                   {errors.firstName && (
-                    <p className="text-sm text-red-500">
+                    <p className="text-xs md:text-sm text-red-500 mt-1">
                       {errors.firstName.message}
                     </p>
                   )}
                 </Field>
 
                 <Field>
-                  <FieldLabel htmlFor="lastName">
+                  <FieldLabel
+                    htmlFor="lastName"
+                    className="text-sm md:text-base"
+                  >
                     Last Name <span className="text-red-500">*</span>
                   </FieldLabel>
                   <Input
@@ -156,9 +172,10 @@ function Payment() {
                     id="lastName"
                     type="text"
                     placeholder="Doe"
+                    className="border-[#b5afa7] focus:ring-[#0a0a0a]"
                   />
                   {errors.lastName && (
-                    <p className="text-sm text-red-500">
+                    <p className="text-xs md:text-sm text-red-500 mt-1">
                       {errors.lastName.message}
                     </p>
                   )}
@@ -167,7 +184,7 @@ function Payment() {
 
               {/* Email */}
               <Field>
-                <FieldLabel htmlFor="email">
+                <FieldLabel htmlFor="email" className="text-sm md:text-base">
                   Email <span className="text-red-500">*</span>
                 </FieldLabel>
                 <Input
@@ -175,19 +192,22 @@ function Payment() {
                   id="email"
                   type="email"
                   placeholder="john@example.com"
+                  className="border-[#b5afa7] focus:ring-[#0a0a0a]"
                 />
                 {errors.email && (
-                  <p className="text-sm text-red-500">{errors.email.message}</p>
+                  <p className="text-xs md:text-sm text-red-500 mt-1">
+                    {errors.email.message}
+                  </p>
                 )}
-                <FieldDescription>
+                <FieldDescription className="text-xs md:text-sm">
                   Receipt will be sent to this email
                 </FieldDescription>
               </Field>
 
               {/* Phone & Country */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Field>
-                  <FieldLabel htmlFor="phone">
+                  <FieldLabel htmlFor="phone" className="text-sm md:text-base">
                     Phone <span className="text-red-500">*</span>
                   </FieldLabel>
                   <Input
@@ -195,28 +215,34 @@ function Payment() {
                     id="phone"
                     type="tel"
                     placeholder="08012345678"
+                    className="border-[#b5afa7] focus:ring-[#0a0a0a]"
                   />
                   {errors.phone && (
-                    <p className="text-sm text-red-500">
+                    <p className="text-xs md:text-sm text-red-500 mt-1">
                       {errors.phone.message}
                     </p>
                   )}
                 </Field>
 
                 <Field>
-                  <FieldLabel htmlFor="country">Country</FieldLabel>
+                  <FieldLabel
+                    htmlFor="country"
+                    className="text-sm md:text-base"
+                  >
+                    Country
+                  </FieldLabel>
                   <Select
                     defaultValue="ng"
                     onValueChange={(value) => setValue("country", value)}
                   >
-                    <SelectTrigger id="country">
+                    <SelectTrigger id="country" className="border-[#b5afa7]">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="ng">Nigeria</SelectItem>
-                      <SelectItem value="gh">Ghana</SelectItem>
-                      <SelectItem value="ke">Kenya</SelectItem>
-                      <SelectItem value="za">South Africa</SelectItem>
+                      <SelectItem value="ng">🇳🇬 Nigeria</SelectItem>
+                      <SelectItem value="gh">🇬🇭 Ghana</SelectItem>
+                      <SelectItem value="ke">🇰🇪 Kenya</SelectItem>
+                      <SelectItem value="za">🇿🇦 South Africa</SelectItem>
                     </SelectContent>
                   </Select>
                 </Field>
@@ -224,7 +250,7 @@ function Payment() {
 
               {/* Address */}
               <Field>
-                <FieldLabel htmlFor="address">
+                <FieldLabel htmlFor="address" className="text-sm md:text-base">
                   Address <span className="text-red-500">*</span>
                 </FieldLabel>
                 <Input
@@ -232,43 +258,45 @@ function Payment() {
                   id="address"
                   type="text"
                   placeholder="123 Main Street, Apartment 4B"
+                  className="border-[#b5afa7] focus:ring-[#0a0a0a]"
                 />
                 {errors.address && (
-                  <p className="text-sm text-red-500">
+                  <p className="text-xs md:text-sm text-red-500 mt-1">
                     {errors.address.message}
                   </p>
                 )}
               </Field>
 
               {/* Test Mode Notice */}
-              <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
-                <p className="font-bold text-yellow-900 text-sm mb-1">
-                  🧪 Test Mode
+              <div className="bg-[#fff8e1] border border-[#ffd54f] p-3 md:p-4 rounded-lg">
+                <p className="font-bold text-[#f57c00] text-xs md:text-sm mb-1">
+                  🧪 Test Mode Active
                 </p>
-                <p className="text-sm text-yellow-800">
+                <p className="text-xs md:text-sm text-[#e65100]">
                   Card:{" "}
-                  <code className="bg-yellow-100 px-1">
+                  <code className="bg-[#fff3e0] px-1 py-0.5 rounded text-xs">
                     4084 0840 8408 4081
                   </code>
                 </p>
-                <p className="text-sm text-yellow-800">
-                  CVV: 123 | Expiry: 12/25
+                <p className="text-xs md:text-sm text-[#e65100]">
+                  CVV: <span className="font-mono">123</span> | Expiry:{" "}
+                  <span className="font-mono">12/25</span>
                 </p>
               </div>
 
               {/* Buttons */}
-              <div className="flex gap-3 mt-6">
+              <div className="flex flex-col sm:flex-row gap-3 mt-6">
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() => router.push("/cart")}
-                  className="flex-1"
+                  onClick={() => router.push("/carts")}
+                  className="flex-1 border-[#b5afa7] hover:bg-[#b5afa7] hover:text-white transition-colors"
                 >
                   Back to Cart
                 </Button>
 
-                {/* Simple PaystackButton - always visible */}
-                <button
+                {/* PaystackButton */}
+                <div
                   onClick={async (e) => {
                     const canProceed = await handlePaymentClick();
                     if (!canProceed) {
@@ -278,23 +306,30 @@ function Payment() {
                   className="flex-1"
                 >
                   <PaystackButton
-                    className="w-full bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition font-medium"
+                    className="w-full bg-[#0a0a0a] text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-all duration-200 font-medium text-sm md:text-base"
                     {...componentProps}
                   />
-                </button>
+                </div>
               </div>
             </FieldGroup>
           </div>
 
           {/* Right: Order Summary */}
           <div className="lg:col-span-1">
-            <div className="bg-white p-6 rounded-lg shadow-sm sticky top-4">
-              <h2 className="text-xl font-bold mb-4">Order Summary</h2>
+            <div className="border border-[#b5afa7] bg-white p-4 md:p-6 rounded-lg sticky top-4">
+              <h2 className="text-lg md:text-xl font-bold mb-4 text-gray-900">
+                Order Summary
+              </h2>
 
               {items.length === 0 ? (
                 <div className="text-center py-8">
-                  <p className="text-gray-500 mb-4">Your cart is empty</p>
-                  <Button onClick={() => router.push("/products")}>
+                  <p className="text-gray-500 mb-4 text-sm md:text-base">
+                    Your cart is empty
+                  </p>
+                  <Button
+                    onClick={() => router.push("/products")}
+                    className="bg-[#0a0a0a] hover:bg-gray-800"
+                  >
                     Browse Products
                   </Button>
                 </div>
@@ -302,47 +337,52 @@ function Payment() {
                 <>
                   <div className="space-y-3 mb-4 max-h-64 overflow-y-auto">
                     {items.map((item) => (
-                      <div key={item.id} className="flex gap-3">
+                      <div
+                        key={item.id}
+                        className="flex gap-3 p-2 hover:bg-gray-50 rounded transition-colors"
+                      >
                         <Image
                           src={item.image}
                           alt={item.name}
-                          width={50}
-                          height={50}
-                          className="rounded object-cover"
+                          width={60}
+                          height={60}
+                          className="rounded object-cover w-12 h-12 md:w-[60px] md:h-[60px] flex-shrink-0"
                         />
-                        <div className="flex-1">
-                          <p className="text-sm font-medium truncate">
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs md:text-sm font-medium truncate">
                             {item.name}
                           </p>
                           <p className="text-xs text-gray-500">
                             Qty: {item.quantity}
                           </p>
                         </div>
-                        <p className="text-sm font-medium">
-                          ₦{(item.price * item.quantity).toFixed(2)}
+                        <p className="text-xs md:text-sm font-medium whitespace-nowrap">
+                          ₦{(item.price * item.quantity).toLocaleString()}
                         </p>
                       </div>
                     ))}
                   </div>
 
-                  <div className="border-t pt-4 space-y-2">
-                    <div className="flex justify-between text-sm">
+                  <div className="border-t border-[#b5afa7] pt-4 space-y-2">
+                    <div className="flex justify-between text-xs md:text-sm">
                       <span className="text-gray-600">Subtotal</span>
                       <span className="font-medium">
-                        ₦{subTotal.toFixed(2)}
+                        ₦{subTotal.toLocaleString()}
                       </span>
                     </div>
-                    <div className="flex justify-between text-sm">
+                    <div className="flex justify-between text-xs md:text-sm">
                       <span className="text-gray-600">VAT (7.5%)</span>
-                      <span className="font-medium">₦{vat.toFixed(2)}</span>
+                      <span className="font-medium">
+                        ₦{vat.toLocaleString()}
+                      </span>
                     </div>
-                    <div className="flex justify-between text-sm">
+                    <div className="flex justify-between text-xs md:text-sm">
                       <span className="text-gray-600">Shipping</span>
                       <span className="text-green-600 font-medium">Free</span>
                     </div>
-                    <div className="border-t pt-2 flex justify-between font-bold text-lg">
+                    <div className="border-t border-[#b5afa7] pt-2 flex justify-between font-bold text-base md:text-lg">
                       <span>Total</span>
-                      <span>₦{total.toFixed(2)}</span>
+                      <span>₦{total.toLocaleString()}</span>
                     </div>
                   </div>
                 </>
@@ -351,7 +391,7 @@ function Payment() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

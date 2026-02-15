@@ -42,7 +42,7 @@ function Footer() {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="bg-[#1a1a1a] border border-gray-700 rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-[#ff6b35]"
+                className="bg-[#1a1a1a] border border-gray-700 rounded-md px-4 py-2 placeholder:text-center text-white focus:outline-none focus:ring-2 focus:ring-[#ff6b35]"
               />
               <button
                 type="submit"
@@ -55,7 +55,7 @@ function Footer() {
         </div>
       </div>
       <div className="logo text-center ">
-        <span className="lg:text-[250px] text-5xl md:text-9xl tracking-widest text-center text-gray-300">
+        <span className="lg:text-[250px] text-7xl md:text-9xl tracking-widest text-center text-gray-300">
           CABASH
         </span>{" "}
       </div>

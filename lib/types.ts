@@ -27,3 +27,17 @@ export interface CartItem {
   image: string;
   description?: string;
 }
+
+export interface reviews {
+  id: string;
+  names: string;
+  rating: number;
+  title: string;
+  comment: string;
+  product: string;
+  size: string;
+  location: string;
+  avatar: string;
+  date: string;
+  verified: boolean;
+}

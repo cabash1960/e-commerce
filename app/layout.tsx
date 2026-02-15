@@ -7,7 +7,8 @@ import { dMSans, spaceGrotesk, orbitron } from "@/app/ui/font";
 
 export const metadata: Metadata = {
   title: "CABASH",
-  description: "Ride With US",
+  description: "Shop premium sneakers designed for comfort and performance.",
+  keywords: ["sneakers", "running shoes", "streetwear shoes"],
 };
 
 export default function RootLayout({
