@@ -2,11 +2,12 @@
 
 import { Products } from "@/lib/types";
 import { useCartStore } from "@/store/cartStore";
-import { ShoppingBagIcon } from "lucide-react";
+import { StepBack, ShoppingBagIcon } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import ProductCard from "./ProductCard";
 import Feature from "../layout/feature";
+import Link from "next/link";
 
 function ProductDetails({
   selectedProduct,
@@ -37,11 +38,16 @@ function ProductDetails({
   };
 
   return (
-    <section className="min-h-screen px-4 py-12 md:px-8 md:py-16 overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex min-h-[75vh] gap-6 md:gap-8 flex-col md:flex-row justify-center items-center md:items-start">
+    <section className="min-h-screen px-4 py-12 md:px-8 md:py-16 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto ">
+        <div className="flex min-h-[75vh] gap-6 md:gap-8 flex-col md:flex-row justify-center items-center ">
           <div className="flex gap-3 flex-col  md:flex-row justify-center items-center w-full md:w-auto">
             <div className="rounded-lg shadow-md overflow-hidden w-full md:w-auto">
+              <div className="text-xl hover:scale-105 transition-all duration-300 ease-in-out text-[#0a0a0a] absolute top-3 md:top-5 left-5 hover:underline hover:underline-offset-2 ">
+                <Link href="/products">
+                  <StepBack />
+                </Link>
+              </div>
               <div className="hover:scale-105 transition-all duration-300 ease-in-out">
                 <Image
                   src={selectedProduct.image}
