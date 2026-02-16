@@ -1,8 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# E-Commerce App
 
-## Getting Started
+A modern e-commerce application built with Next.js. This project serves as the final exam submission for the AltSchool workshop.
 
-First, run the development server:
+## 🚀 Features
+
+- **Product Browsing**: View a list of available products.
+- **Product Details**: Detailed view for individual products.
+- **Shopping Cart**: Add, remove, and manage items in the cart.
+- **Responsive Design**: Optimized for mobile, tablet, and desktop devices.
+- **Performance**: Built with Next.js for server-side rendering and static generation.
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js
+- **Language**: TypeScript
+- **Styling**: CSS Modules / Tailwind CSS
+- **Deployment**: Vercel
+
+## 🏁 Getting Started
+
+Follow these instructions to get a copy of the project up and running on your local machine.
+
+### Prerequisites
+
+Ensure you have the following installed:
+
+- Node.js (version 18 or higher recommended)
+- npm, yarn, pnpm, or bun
+
+### Installation
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone <repository-url>
+   cd e-commerce-app
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   npm install
+   # or
+   yarn install
+   # or
+   pnpm install
+   # or
+   bun install
+   ```
+
+3. **Run the development server:**
 
 ```bash
 npm run dev

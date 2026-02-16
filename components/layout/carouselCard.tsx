@@ -8,14 +8,11 @@ function CarouselCard({ review }: { review: reviews }) {
     <div className="space-y-4 w-fit  flex flex-col gap-4  ">
       <div className="flex flex-col gap-6">
         <div className="flex gap-4 items-center">
-          {/* <Image
-            src={review.avatar}
-            alt="design"
-            className="p-8 rounded-full w-fit"
-            width={24}
-            height={24}
-          /> */}
-          <div className="bg-white p-8 rounded-full w-fit "></div>
+          <div
+            className="bg-white p-8 rounded-full w-fit"
+            role="img"
+            aria-label={`Avatar for ${review.names}`}
+          ></div>
 
           <h3 className="text-2xl text-gray-600!">{review.names}</h3>
         </div>

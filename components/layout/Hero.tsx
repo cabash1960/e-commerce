@@ -6,121 +6,149 @@ import { useGSAP } from "@/lib/useGSAP";
 import gsap from "gsap";
 import { useRef } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import SplitText from "gsap/src/SplitText";
+import SplitText from "gsap/SplitText";
+import Image from "next/image";
 
 function Hero() {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const heroRef = useRef<HTMLElement>(null);
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   useGSAP(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    if (!videoRef.current) return;
+    gsap.registerPlugin(ScrollTrigger, SplitText);
 
-    const heroSplit = new SplitText(".title", { type: "chars,words" });
+    const heroSplit = new SplitText(".title", { type: "chars" });
     const paragraphSplit = new SplitText(".paragraph", { type: "lines" });
-
-    // Faster animations on mobile
-    const animDuration = isMobile ? 1.2 : 1.8;
-    const staggerAmount = isMobile ? 0.03 : 0.05;
-
-    gsap.from(heroSplit.chars, {
-      yPercent: 100,
-      duration: animDuration,
-      ease: "expo.out",
-      opacity: 0,
-      stagger: staggerAmount,
-    });
-
-    gsap.from(paragraphSplit.lines, {
-      opacity: 0,
-      yPercent: 100,
-      duration: animDuration,
-      ease: "expo.out",
-      stagger: isMobile ? 0.04 : 0.06,
-      delay: isMobile ? 0.6 : 1,
-    });
-
-    gsap.from(".dotted", {
-      opacity: 0,
-      xPercent: 100,
-      duration: animDuration,
-      ease: "expo.out",
-      stagger: isMobile ? 0.04 : 0.06,
-    });
-
-    // Optimized scroll values for mobile
-    const startValue = isMobile ? "top 30%" : "center 60%";
-    const endValue = isMobile ? "+=400%" : "+=200%";
 
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: videoRef.current,
-        start: startValue,
-        end: endValue,
-        scrub: isMobile ? 0.5 : 1, // Smoother scrub on mobile
+        trigger: heroRef.current,
+        start: "top top",
+        end: "+=200%",
+        scrub: 1,
         pin: true,
         pinSpacing: false,
-        // anticipatePin: 1, // Prevents jump on pin
       },
     });
 
-    const setupVideoAnimation = () => {
-      tl.to(videoRef.current, {
-        currentTime: videoRef.current?.duration || 0,
-        ease: "none",
-      });
-    };
+    // Smooth premium shoe movement
+    tl.to(".object", {
+      x: 180,
+      y: 150,
+      scale: 0.6,
+      rotate: 45,
+      ease: "power2.out",
+    });
 
-    if (videoRef.current.readyState >= 1) {
-      setupVideoAnimation();
-    } else {
-      videoRef.current.onloadedmetadata = setupVideoAnimation;
-    }
+    // Heading animation
+    gsap.from(heroSplit.chars, {
+      yPercent: 100,
+      opacity: 0,
+      stagger: isMobile ? 0.03 : 0.05,
+      duration: 1.4,
+      ease: "expo.out",
+    });
+
+    // Paragraph animation
+    gsap.from(paragraphSplit.lines, {
+      yPercent: 100,
+      opacity: 0,
+      stagger: 0.05,
+      duration: 1.4,
+      delay: 0.6,
+      ease: "expo.out",
+    });
   }, [isMobile]);
 
   return (
-    <section className="min-h-screen relative hero w-full z-0 flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-tr from-orange-100/30 via-transparent to-slate-200/40 animate-pulse-slow" />
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-radial from-orange-200/20 to-transparent blur-3xl" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-radial from-slate-300/20 to-transparent blur-3xl" />
-      <h1 className="font-bold logo relative title text-7xl sm:text-7xl md:text-[16rem] text-[#4a4a4a] opacity-25 tracking-[0.15em] md:tracking-[0.2em]">
+    <section
+      ref={heroRef}
+      aria-label="Hero showcase for Nike Airmax 95"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+    >
+      {/* Optimized Background */}
+      <div
+        className="absolute inset-0 
+    bg-[radial-gradient(ellipse_at_center,#985125_0%,#5a2d12_100%)]"
+      />
+
+      <div
+        className="absolute inset-0 
+    bg-gradient-to-b from-black/40 via-transparent to-black/40"
+      />
+
+      <div
+        className="absolute top-1/2 left-1/2 w-[min(900px,90vw)] aspect-square
+    -translate-x-1/2 -translate-y-1/2
+    bg-[radial-gradient(circle,rgba(255,160,90,0.3)_0%,transparent_70%)]
+    blur-3xl pointer-events-none"
+      />
+
+      {/* Single noise texture */}
+      <div className="absolute inset-0 noise opacity-20 mix-blend-overlay pointer-events-none" />
+
+      {/* Watermark */}
+      <h1
+        className="title absolute font-bold text-7xl md:text-[16rem]
+    bg-gradient-to-b from-[#F5EDE6] to-[#8a7a6d]
+    bg-clip-text text-transparent
+    opacity-20 md:opacity-30 blur-[1px]
+    tracking-[0.2em] select-none pointer-events-none"
+      >
         CABASH
       </h1>
 
-      {/* Improved mobile positioning */}
-      <div className="text-3xl sm:text-4xl md:text-5xl paragraph text-left text-[#2a2a2a] font-extrabold logo absolute top-24 left-4 sm:top-32 sm:left-6 md:top-80 md:left-32 z-20 flex flex-col gap-2 md:gap-4 leading-tight">
-        <p>
-          TAKE <br />
-          THE
-          <br />
-          STEP
-        </p>
+      {/* Content Container */}
+      <div className="relative z-20 w-full h-full flex flex-col justify-between p-6 md:p-0">
+        {/* Main Heading */}
+        <div className="md:absolute md:top-80 md:left-32">
+          <p
+            className="title text-4xl sm:text-5xl md:text-6xl text-white font-extrabold 
+        leading-tight drop-shadow-[0_6px_16px_rgba(0,0,0,0.9)]"
+          >
+            TAKE <br />
+            THE
+            <br />
+            STEP
+          </p>
+        </div>
+
+        {/* Product Name Badge */}
+        <div className="md:absolute md:top-1/2 md:right-32 self-end md:self-auto mt-auto md:mt-0">
+          <p
+            className="paragraph text-lg sm:text-xl md:text-2xl font-bold
+        bg-gradient-to-r from-[#FF6B35] to-[#FFB26B] 
+        text-white px-6 py-3 rounded-lg
+        shadow-[0_8px_24px_rgba(255,107,53,0.4)]
+        border border-white/20"
+          >
+            NIKE AIRMAX 95
+          </p>
+        </div>
       </div>
 
-      {/* Better mobile placement */}
-      <p className="text-base sm:text-lg md:text-xl paragraph text-left text-[#0a0a0a] font-extrabold absolute bottom-24 right-4 sm:bottom-32 sm:right-6 md:top-1/2 md:right-32 z-20 underline decoration-[#FF6B35] decoration-2 md:decoration-4 underline-offset-2 md:underline-offset-4">
-        NIKE AIRMAX 95
-      </p>
-
-      {/* Adjusted dot positions for mobile */}
-      <div className="absolute top-2/3 md:top-3/4 -left-10 md:-left-10">
-        <Design className="dotted scale-75 md:scale-100" />
+      {/* Decorative Elements */}
+      <div className="absolute top-2/3 -left-10 opacity-60">
+        <Design className="scale-75 md:scale-100" />
       </div>
-      <div className="absolute bottom-2/3 md:bottom-3/4 -right-6 md:-right-10">
-        <Design className="dotted scale-75 md:scale-100" />
+      <div className="absolute bottom-2/3 -right-10 opacity-60">
+        <Design className="scale-75 md:scale-100" />
       </div>
 
-      {/* Optimized video container */}
-      <div className="w-full h-2/3 sm:h-3/4 md:h-[80%] video absolute -top-20 sm:-top-32 left-0 ">
-        <video
-          ref={videoRef}
-          className="w-full h-full object-cover object-bottom md:object-contain"
-          muted
-          playsInline
-          preload="auto"
-          style={{ filter: "hue-rotate(180deg)" }}
-          src="/videos/shoe_smooth_transparent.webm"
-        ></video>
+      {/* Shoe Image */}
+      <div
+        className="object absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+    w-[85%] sm:w-[70%] md:w-[55%] max-w-[700px] z-10"
+      >
+        <Image
+          src="/her-img.png"
+          width={800}
+          height={800}
+          alt="Nike Airmax 95 premium athletic shoe"
+          className="w-full h-full object-contain rotate-[330deg]
+        drop-shadow-[0_25px_50px_rgba(0,0,0,0.6)]
+        filter brightness-110"
+          priority
+        />
       </div>
     </section>
   );

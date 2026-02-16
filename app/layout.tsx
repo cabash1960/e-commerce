@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "CABASH",
   description: "Shop premium sneakers designed for comfort and performance.",
   keywords: ["sneakers", "running shoes", "streetwear shoes"],
+  icons: "/logos.png",
 };
 
 export default function RootLayout({
@@ -18,11 +19,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/logos.png" type="image/png " />
+      </head>
       <body
-        className={`${dMSans.variable} ${spaceGrotesk.variable} ${orbitron.variable} antialiased`}
+        className={`${dMSans.variable} ${spaceGrotesk.variable} ${orbitron.variable} antialiased `}
       >
         <NavBar />
-        <main className="min-h-full pt-20 md:pt-24 ">{children}</main>
+        <main className="min-h-full pt-20 md:pt-20 ">{children}</main>
         <Footer />
       </body>
     </html>

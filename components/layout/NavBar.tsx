@@ -23,21 +23,21 @@ function NavBar() {
 
     navTween.fromTo(
       "nav",
-      { y: -100, opacity: 0, backgroundColor: "rgba(10,10,10,0.5)" },
+      { y: -100, opacity: 0, backgroundColor: "none" },
       {
         y: 0,
         opacity: 1,
         duration: 1,
-        backgroundColor: "rgba(10,10,10,1)",
-        backgroundFilter: "blur(10px)",
         ease: "power1.inOut",
+        backgroundColor: "#00000050",
+        backdropFilter: "blur(10px)",
       },
     );
   });
 
   return (
-    <nav className=" lg:h-20 fixed w-full z-50 lg:h-10  lg:p-6 p-4 bg-[#0A0A0A]">
-      <div className="flex justify-between items-center  text-gray-100 max-w-7xl mx-auto">
+    <nav className="fixed top-0 w-full z-50 lg:h-20 lg:p-6 p-4 bg-none">
+      <div className="flex justify-between items-center text-gray-100 max-w-7xl mx-auto">
         <ul className=" hidden md:flex gap-7">
           <li>
             <Link href="/">Home</Link>
@@ -56,7 +56,7 @@ function NavBar() {
         <div className="lg:flex gap-7 hidden items-center justify-center">
           <UserRound />
           <span>
-            <Link href="/carts" className="relative">
+            <Link href="/carts" className="relative" aria-label="View cart">
               <BaggageClaim />
               <span className=" bg-red-800 text-white rounded-full w-5 h-5 flex items-center justify-center absolute -top-2 left-4">
                 {cartCount > 0 && cartCount}
@@ -64,7 +64,10 @@ function NavBar() {
             </Link>
           </span>
           <Link href="/products">
-            <p className="bg-[#D97642] text-white px-4 py-2 hidden md:flex cursor:pointer rounded-md text-sm font-semibold hover:bg-[#E08856] transition-colors">
+            <p
+              className="bg-[#F5EDE6] text-[#3b1d0e] px-4 py-2 hidden md:flex cursor:pointer rounded-md text-sm font-semibold hover:bg-[#F5EDE6] hover:text-[#3b1d0e]
+ transition-colors duration-300 ease-in-out"
+            >
               Shop Now
             </p>
           </Link>
@@ -72,7 +75,7 @@ function NavBar() {
         <div className="flex gap-2 md:hidden">
           <UserRound />
           <span>
-            <Link href="/carts" className="relative">
+            <Link href="/carts" className="relative" aria-label="View cart">
               <BaggageClaim />
               <span className=" bg-red-800 text-white rounded-full w-5 h-5 flex items-center justify-center absolute -top-2 left-4">
                 {cartCount > 0 && cartCount}
@@ -86,18 +89,26 @@ function NavBar() {
           </Link>
 
           {open ? (
-            <button className="md:hidden" onClick={() => isOpen(!open)}>
+            <button
+              className="md:hidden"
+              onClick={() => isOpen(!open)}
+              aria-label="Close menu"
+            >
               <X />
             </button>
           ) : (
-            <button className="md:hidden" onClick={() => isOpen(!open)}>
+            <button
+              className="md:hidden"
+              onClick={() => isOpen(!open)}
+              aria-label="Open menu"
+            >
               <Menu />
             </button>
           )}
         </div>
       </div>
       {open && (
-        <ul className=" md:hidden flex flex-col bg-[#0A0A0A] items-center py-6 gap-6 absolute top-10 left-0 w-full  text-gray-300">
+        <ul className=" md:hidden flex flex-col  items-center py-6 gap-6 absolute top-10 left-0 w-full  text-gray-300">
           <li>
             <Link href="/" onClick={() => isOpen(false)}>
               Home

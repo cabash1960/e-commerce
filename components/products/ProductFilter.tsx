@@ -71,7 +71,7 @@ export default function ProductFilter() {
   }
 
   return (
-    <section className="min-h-screen pt-24 md:pt-32 pb-12 px-4 md:px-8">
+    <section className="min-h-screen pt-24 md:pt-32 pb-12 px-4 md:px-8 bg-gradient-to-br from-[#f6dac2] via-[#fae8d5] to-[#f6dac2] relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">

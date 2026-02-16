@@ -1,14 +1,18 @@
 import type { Products } from "@/lib/types";
 import { inStock } from "@/lib/utils";
 import { useCartStore } from "@/store/cartStore";
-import Images from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import { ShoppingBag } from "lucide-react";
 
 function ProductCard({ product }: { product: Products }) {
   const { addItems } = useCartStore();
 
-  const onAddItem = (product: Products) => {
+  const onAddItem = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     if (!inStock(product)) {
       return;
     }
@@ -25,52 +29,88 @@ function ProductCard({ product }: { product: Products }) {
   };
 
   return (
-    <div className=" p-4 border border-[#ff6b35] relative   hover:ring-2 hover:ring-[#ff6b35] rounded-lg transition-all group duration-300 overflow-hidden backdrop-blur-xs cursor-pointer">
-      <Link href={`/products/${product.id}`}>
-        <div className=" flex flex-col gap-2 ">
-          <Images
-            src={`${product.image ? product.image : product.images[0]}`}
-            alt={`${product.name} image`}
-            width={250}
-            height={250}
-            loading="lazy"
-            className="rounded-sm group-hover:scale-105  transition-all duration-300 ease-in-out "
-          />{" "}
-          <div className="flex flex-col justify-center items-center gap-2">
-            <p className="font-bold logo ">{product.name}</p>
-            <p className="text-sm text-[#4a4a4a] opacity-70">
-              {" "}
-              {product.description
-                ? product.description
-                : "No description available"}
-            </p>
-            <div className="flex gap-2 items-center justify-center">
-              <p className=" text-gray-500 line-through  opacity-75 font-bold text-xl">
-                <span className="text-xl">₦</span>
-                {product.price}
-              </p>
-              <p className=" text-[#c95023] font-bold text-2xl flex items-center justify-center">
-                <span className="opacity-90 text-xl ">₦</span>
+    <div className="relative group w-full max-w-sm">
+      <Link href={`/products/${product.id}`} className="block">
+        <div
+          className="relative p-6 rounded-2xl 
+          bg-gradient-to-br from-[#2a150a] to-[#1a0a05]
+          border border-[#ff6b35]/30
+          hover:border-[#ff6b35]
+          transition-all duration-300
+          overflow-hidden
+          shadow-lg hover:shadow-2xl hover:shadow-[#ff6b35]/20"
+        >
+          {/* Sale Badge */}
+          {product.compareAtPrice && (
+            <div className="absolute top-4 right-4 z-10 bg-[#ff6b35] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
+              SALE
+            </div>
+          )}
 
-                <span>{product.compareAtPrice}</span>
+          <div className="flex flex-col gap-4">
+            {/* Image */}
+            <div className="relative overflow-hidden rounded-xl bg-white/5 backdrop-blur-sm">
+              <Image
+                src={product.image || product.images[0]}
+                alt={`${product.name} sneaker`}
+                width={300}
+                height={300}
+                loading="lazy"
+                className="w-full h-64 object-contain 
+                  group-hover:scale-110 transition-transform duration-500 ease-out"
+              />
+            </div>
+
+            {/* Info */}
+            <div className="flex flex-col gap-2 text-center min-h-[120px]">
+              <h3 className="font-bold text-lg text-[#F5EDE6] tracking-wide line-clamp-1">
+                {product.name}
+              </h3>
+
+              <p className="text-sm text-[#b9b9b9] line-clamp-2 flex-1">
+                {product.description || "Premium quality footwear"}
               </p>
+
+              {/* Price */}
+              <div className="flex items-center justify-center gap-3 mt-2">
+                {/* Main price */}
+                <p className="text-2xl font-bold text-[#FFB26B]">
+                  ₦{product.price.toLocaleString()}
+                </p>
+
+                {/* Compare price */}
+                {product.compareAtPrice && (
+                  <p className="text-sm text-gray-500 line-through">
+                    ₦{product.compareAtPrice.toLocaleString()}
+                  </p>
+                )}
+              </div>
             </div>
           </div>
-        </div>
 
-        <div
-          className={`absolute w-full h-full bg-[#0a0a0a23] ${!inStock(product) ? "group-hover:opacity-100" : "group-hover:opacity-0"} opacity-0 inset-0 flex justify-center items-center text-2xl text-white font-bold transition-all duration-300 ease-in-out`}
-        >
-          <p>Out of Stock</p>
+          {/* Bottom spacing for button */}
+          <div className="h-16" />
         </div>
-        <button
-          className={` text-xl text-gray-100 absolute top-0 right-0 ${!inStock(product) ? "group-hover:opacity-0" : "group-hover:opacity-100"} opacity-0  -translate-y-1 group-hover:translate-y-0 transition-all duration-300 ease-in-out w-full flex justify-center items-center bg-[#ff6b35] px-2 py-4 cursor-pointer`}
-          onClick={() => onAddItem(product)}
-          disabled={!inStock(product)}
-        >
-          {inStock(product) ? "Add to Cart" : "Out of Stock"}
-        </button>
       </Link>
+
+      {/* Add to Cart Button - Outside Link */}
+      <button
+        className={`absolute bottom-0 left-0 right-0 mx-auto w-[calc(100%-3rem)] mb-3
+          rounded-xl py-3.5 font-semibold text-sm
+          flex items-center justify-center gap-2
+          transition-all duration-300 transform
+          ${
+            inStock(product)
+              ? "bg-[#ff6b35] text-white opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 hover:bg-[#ff8c5a] active:scale-95 shadow-lg"
+              : "bg-gray-700 text-gray-400 cursor-not-allowed opacity-100"
+          }
+        `}
+        onClick={onAddItem}
+        disabled={!inStock(product)}
+      >
+        <ShoppingBag size={18} />
+        {inStock(product) ? "Add to Cart" : "Out of Stock"}
+      </button>
     </div>
   );
 }
