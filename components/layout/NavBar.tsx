@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { useCartStore } from "@/store/cartStore";
 import { BaggageClaim, UserRound, Menu, X } from "lucide-react";
@@ -10,10 +10,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 function NavBar() {
   const [open, isOpen] = useState(false);
+
   const { items } = useCartStore();
+  const mobileNavRef = useRef<HTMLLIElement | null>(null);
   const cartCount = items.reduce((acc, item) => acc + item.quantity, 0);
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger);
+
     const navTween = gsap.timeline({
       scrollTrigger: {
         trigger: "nav",
@@ -34,6 +37,17 @@ function NavBar() {
       },
     );
   });
+  useGSAP(() => {
+    if (open && mobileNavRef.current) {
+      gsap.from(mobileNavRef.current.children, {
+        y: 50,
+        ease: "power1.inOut",
+        duration: 0.5,
+        opacity: 0,
+        stagger: 0.1,
+      });
+    }
+  }, [open]);
 
   return (
     <nav className="fixed top-0 w-full z-50 lg:h-20 lg:p-6 p-4 bg-none">
@@ -108,7 +122,10 @@ function NavBar() {
         </div>
       </div>
       {open && (
-        <ul className=" md:hidden flex flex-col  items-center py-6 gap-6 absolute top-10 left-0 w-full  text-gray-300">
+        <ul
+          ref={mobileNavRef}
+          className="  md:hidden flex flex-col  items-center py-6 gap-6 absolute  top-15 left-0 w-full bg-[#3b1d0e] text-gray-300"
+        >
           <li>
             <Link href="/" onClick={() => isOpen(false)}>
               Home
