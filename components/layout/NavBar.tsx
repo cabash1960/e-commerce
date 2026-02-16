@@ -12,7 +12,7 @@ function NavBar() {
   const [open, isOpen] = useState(false);
 
   const { items } = useCartStore();
-  const mobileNavRef = useRef<HTMLLIElement | null>(null);
+  const mobileNavRef = useRef<HTMLUListElement>(null);
   const cartCount = items.reduce((acc, item) => acc + item.quantity, 0);
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger);

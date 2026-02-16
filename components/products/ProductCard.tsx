@@ -101,7 +101,7 @@ function ProductCard({ product }: { product: Products }) {
           transition-all duration-300 transform
           ${
             inStock(product)
-              ? "bg-[#ff6b35] text-white opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 hover:bg-[#ff8c5a] active:scale-95 shadow-lg"
+              ? "bg-[#ff6b35] opacity-1 text-white md:opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 hover:bg-[#ff8c5a] active:scale-95 shadow-lg"
               : "bg-gray-700 text-gray-400 cursor-not-allowed opacity-100"
           }
         `}
