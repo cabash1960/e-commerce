@@ -65,7 +65,6 @@ function Hero() {
       aria-label="Hero showcase for Nike Airmax 95"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Optimized Background */}
       <div
         className="absolute inset-0 
     bg-[radial-gradient(ellipse_at_center,#985125_0%,#5a2d12_100%)]"
@@ -86,7 +85,6 @@ function Hero() {
       {/* Single noise texture */}
       <div className="absolute inset-0 noise opacity-20 mix-blend-overlay pointer-events-none" />
 
-      {/* Watermark */}
       <h1
         className="title absolute font-bold text-7xl md:text-[16rem]
     bg-gradient-to-b from-[#F5EDE6] to-[#8a7a6d]
