@@ -123,8 +123,8 @@ function FeaturedProduct({
                 ref={(el) => {
                   productsRef.current[index] = el;
                 }}
-                className="sticky top-20"
-                style={{ zIndex: featuredProducts.length - index }}
+                className={`sticky top-20 `}
+                style={{ zIndex: featuredProducts.length + index }}
               >
                 <ProductCardHero product={product} />
               </div>
