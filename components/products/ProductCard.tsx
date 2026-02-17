@@ -93,7 +93,6 @@ function ProductCard({ product }: { product: Products }) {
         </div>
       </Link>
 
-      {/* Add to Cart Button - Outside Link */}
       <button
         className={`absolute bottom-0 left-0 right-0 mx-auto w-[calc(100%-3rem)] mb-3
           rounded-xl py-3.5 font-semibold text-sm
@@ -101,7 +100,7 @@ function ProductCard({ product }: { product: Products }) {
           transition-all duration-300 transform
           ${
             inStock(product)
-              ? "bg-[#ff6b35] opacity-1 text-white md:opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 hover:bg-[#ff8c5a] active:scale-95 shadow-lg"
+              ? "bg-[#ff6b35] opacity-100 text-white md:opacity-0 md:translate-y-2 md:group-hover:opacity-100 md:group-hover:translate-y-0 hover:bg-[#ff8c5a] active:scale-95 shadow-lg z-20"
               : "bg-gray-700 text-gray-400 cursor-not-allowed opacity-100"
           }
         `}
