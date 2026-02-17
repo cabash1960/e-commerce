@@ -130,7 +130,7 @@ function FeaturedProduct({
           )}
         </div>
 
-        <div className="h-76" />
+        <div className="h-32" />
       </div>
     </section>
   );

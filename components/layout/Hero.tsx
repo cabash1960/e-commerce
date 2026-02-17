@@ -82,7 +82,6 @@ function Hero() {
     blur-3xl pointer-events-none"
       />
 
-      {/* Single noise texture */}
       <div className="absolute inset-0 noise opacity-20 mix-blend-overlay pointer-events-none" />
 
       <h1
@@ -95,10 +94,8 @@ function Hero() {
         CABASH
       </h1>
 
-      {/* Content Container */}
       <div className="relative z-20 w-full h-full flex flex-col justify-between p-6 md:p-0">
-        {/* Main Heading */}
-        <div className="md:absolute md:top-80 md:left-32">
+        <div className="absolute top-70 left-20  md:top-70 md:left-32">
           <p
             className="title text-4xl sm:text-5xl md:text-6xl text-white font-extrabold 
         leading-tight drop-shadow-[0_6px_16px_rgba(0,0,0,0.9)]"
@@ -110,8 +107,7 @@ function Hero() {
           </p>
         </div>
 
-        {/* Product Name Badge */}
-        <div className="md:absolute md:top-1/2 md:right-32 self-end md:self-auto mt-auto md:mt-0">
+        <div className="absolute md:top-1/2 md:right-32 top-1/2 right-15 self-end md:self-auto mt-auto md:mt-0">
           <p
             className="paragraph text-lg sm:text-xl md:text-2xl font-bold
         bg-gradient-to-r from-[#FF6B35] to-[#FFB26B] 
