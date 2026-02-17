@@ -18,12 +18,12 @@ function FeaturedProduct({
   const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(() => {
-    const featurechar = new SplitText(headingRef.current, {
-      type: "chars,words",
-    });
-
-    // Heading animation
+    // --- Heading animation ---
     if (headingRef.current) {
+      const featurechar = new SplitText(headingRef.current, {
+        type: "chars,words",
+      });
+
       gsap.from(featurechar.chars, {
         scrollTrigger: {
           trigger: headingRef.current,
@@ -38,7 +38,7 @@ function FeaturedProduct({
       });
     }
 
-    // Paragraph animation
+    // --- Paragraph animation ---
     if (paragraphRef.current) {
       gsap.from(paragraphRef.current, {
         scrollTrigger: {
@@ -54,41 +54,31 @@ function FeaturedProduct({
       });
     }
 
-    // Stacked cards animation
     productsRef.current.forEach((card, index) => {
-      if (card) {
-        // Set initial state
-        gsap.set(card, {
-          y: index * 60,
-          scale: 1 - index * 0.05,
-          opacity: 1,
-        });
+      if (!card) return;
 
-        // Animate on scroll
-        gsap.to(card, {
-          scrollTrigger: {
-            trigger: card,
-            start: "top center",
-            end: "bottom top",
-            scrub: 1,
-            onEnter: () => {
-              gsap.to(card, {
-                scale: 1,
-                y: 0,
-                duration: 0.6,
-                ease: "power2.out",
-              });
-            },
-          },
-          y: -index * 100,
-          opacity: 1,
-          ease: "none",
-        });
-      }
+      // Only animate cards that will be "buried" by a later card
+      const isLast = index === featuredProducts.length - 1;
+      if (isLast) return;
+
+      const nextCard = productsRef.current[index + 1];
+      if (!nextCard) return;
+
+      gsap.to(card, {
+        scrollTrigger: {
+          trigger: nextCard,
+          start: "top 80%",
+          end: "top top+=80",
+          scrub: 0.5,
+        },
+        scale: 0.96 - index * 0.01,
+        opacity: 0.6,
+        ease: "none",
+      });
     });
 
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, [featuredProducts]);
 
@@ -114,8 +104,7 @@ function FeaturedProduct({
           </p>
         </div>
 
-        {/* Stacked Cards */}
-        <div className="relative space-y-8">
+        <div className="relative">
           {featuredProducts.length > 0 ? (
             featuredProducts.map((product: Products, index: number) => (
               <div
@@ -123,8 +112,13 @@ function FeaturedProduct({
                 ref={(el) => {
                   productsRef.current[index] = el;
                 }}
-                className={`sticky top-20 `}
-                style={{ zIndex: featuredProducts.length + index }}
+                className="sticky top-20 mb-6"
+                style={{
+                  zIndex: index + 1,
+
+                  transformOrigin: "center top",
+                  willChange: "transform, opacity",
+                }}
               >
                 <ProductCardHero product={product} />
               </div>
@@ -136,8 +130,7 @@ function FeaturedProduct({
           )}
         </div>
 
-        {/* Spacer to prevent footer overlap */}
-        <div className="h-96"></div>
+        <div className="h-76" />
       </div>
     </section>
   );
