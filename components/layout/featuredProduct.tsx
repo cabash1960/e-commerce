@@ -57,7 +57,6 @@ function FeaturedProduct({
     productsRef.current.forEach((card, index) => {
       if (!card) return;
 
-      // Only animate cards that will be "buried" by a later card
       const isLast = index === featuredProducts.length - 1;
       if (isLast) return;
 

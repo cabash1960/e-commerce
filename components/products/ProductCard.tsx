@@ -63,7 +63,7 @@ function ProductCard({ product }: { product: Products }) {
 
             {/* Info */}
             <div className="flex flex-col gap-2 text-center min-h-[120px]">
-              <h3 className="font-bold text-lg text-[#F5EDE6] tracking-wide line-clamp-1">
+              <h3 className="font-bold text-lg text-[#F5EDE6]! tracking-wide line-clamp-1">
                 {product.name}
               </h3>
 
